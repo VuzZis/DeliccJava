@@ -1,15 +1,25 @@
 package com.vuzz.delicc;
 
-import com.vuzz.delicc.frontend.ast.AstParser;
-import com.vuzz.delicc.frontend.ast.statements.Program;
-import com.vuzz.delicc.frontend.lexer.Token;
+import com.vuzz.delicc.core.dell1.DeliccCore1;
+import com.vuzz.delicc.exceptions.DeliccException;
+import com.vuzz.delicc.frontend.interpretator.Environment;
+import com.vuzz.delicc.frontend.interpretator.values.RuntimeValue;
+import com.vuzz.delicc.frontend.interpretator.values.StringValue;
 
+@SuppressWarnings("ALL")
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        String testString = "@new testVarA = \"test\"*5+2; testVarA = testVarA*2";
-        Token[] tokens = Lexer.parseString(testString);
-        Program program = AstParser.parse(tokens);
-        System.out.println(program.toString());
+        try {
+            String testString = "var a = \"Hello World!\\n\"*-5;";
+            Delicc deliccLang = new Delicc();
+            Environment environment = new Environment().useCore(new DeliccCore1());
+            RuntimeValue finished = deliccLang.evaluate(environment,testString);
+            System.out.println( ( (StringValue) finished.toStringy() ).value );
+        } catch (DeliccException e) {
+            System.out.println(e.getMessage());
+        } finally {
+
+        }
     }
 }

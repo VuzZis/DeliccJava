@@ -1,4 +1,4 @@
-package com.vuzz.delicc;
+package com.vuzz.delicc.frontend;
 
 import com.vuzz.delicc.frontend.ast.AstParser;
 
